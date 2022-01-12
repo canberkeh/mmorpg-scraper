@@ -20,6 +20,3 @@ def fetch_game_list() -> dict:
     :return: game_list as dict. game_list["games"] -> list
     """
     return game_list
-
-
-# TODO: Create endpoint, create function for game_detail like game_detail('4story')
