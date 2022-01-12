@@ -127,3 +127,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+crawl_all_games.py
+test_example.py
