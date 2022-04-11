@@ -43,7 +43,7 @@ class Scraper:
             raise ParsingError("Can not parse publisher.")
         finally:
             self.set_status_code()
-            return self.game_detail.to_json()
+            return self.game_detail.__dict__
 
 
     def parse_name(self) -> None:
@@ -137,8 +137,11 @@ class Scraper:
         Parse overview for game_detail.overview
         """
         try:
-            for element in self.soup.find('article'):
-                self.game_detail.overview += element.text
+            temp_overview = ""
+            for element in self.soup.find(class_='game-single-content').find_all('article'):
+                temp_overview += element.text
+            self.game_detail.overview = " ".join(word for word in temp_overview.split() if not word.startswith("\\"))
+
         except:
             pass
 
@@ -146,7 +149,7 @@ class Scraper:
         """
         Parse status code and details for game_detail.result.
         """
-        if self.game_detail.result["detail"]:
+        if self.game_detail.result["detail"] and self.game_detail.result["detail"] != "Success":
             self.game_detail.result["status"] = StatusCode.PartialContent.value
         else:
             self.game_detail.result["status"], self.game_detail.result["detail"] = StatusCode.Success.value, "Success"

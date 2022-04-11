@@ -1,4 +1,3 @@
-import json
 from typing import Optional
 
 
@@ -43,11 +42,3 @@ class GameDetail:
         self.platforms = platforms
         self.rating = {"rating": rating, "vote_count": vote_count}
         self.overview = overview
-
-    def to_json(self) -> str:
-        """Returns game_detail object as Json object.
-
-        :return: a dictionary of game_details
-        """
-        return json.dumps(self, default=lambda o: o.__dict__,
-                          indent=4)
